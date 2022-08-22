@@ -1,2 +1,5 @@
 from pysinewave.sinewave import SineWave
 from pysinewave.sinewave_generator import SineWaveGenerator
+
+from pysinewave.beatwave import BeatWave
+from pysinewave.beatwave_generator import BeatWaveGenerator
