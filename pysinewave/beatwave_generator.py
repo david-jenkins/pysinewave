@@ -50,6 +50,12 @@ class BeatWaveGenerator:
         self.goal_f1 = frequency-self.beat_frequency/2
         self.goal_f2 = frequency+self.beat_frequency/2
 
+    def reset_frequency(self, frequency):
+        '''Set the goal frequency that the sinewave will gradually shift towards.'''
+        self.f1 = frequency-self.beat_frequency/2
+        self.f2 = frequency+self.beat_frequency/2
+        self.set_frequency(frequency)
+
     def set_beat_frequency(self, beat_frequency):
         self.beat_frequency = beat_frequency
         self.goal_f1 = self.frequency-beat_frequency/2
@@ -59,6 +65,10 @@ class BeatWaveGenerator:
         '''Set the goal pitch that the sinewave will gradually shift towards.'''
         self.set_frequency(utilities.pitch_to_frequency(pitch))
 
+    def reset_pitch(self, pitch):
+        '''Set the goal pitch that the sinewave will gradually shift towards.'''
+        self.reset_frequency(utilities.pitch_to_frequency(pitch))
+
     def set_amplitude(self, amplitude):
         '''Set the amplitude that the sinewave will gradually shift towards.'''
         self.goal_amplitude = amplitude
@@ -66,6 +76,11 @@ class BeatWaveGenerator:
     def set_decibels(self, decibels):
         '''Set the amplitude (in decibels) that the sinewave will gradually shift towards.'''
         self.goal_amplitude = utilities.decibels_to_amplitude_ratio(decibels)
+    
+    def reset_decibels(self, decibels):
+        '''Set the amplitude (in decibels) that the sinewave will gradually shift towards.'''
+        self.amplitude = utilities.decibels_to_amplitude_ratio(decibels)
+        self.goal_amplitude = self.amplitude
 
     def next_data(self, frames):
         '''Get the next pressure array for the given number of frames'''

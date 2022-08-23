@@ -20,7 +20,7 @@ class BeatWave:
 
         # Create the output stream
         self.output_stream = sd.OutputStream(channels=channels, callback= lambda *args: self._callback(*args), 
-                                samplerate=samplerate, blocksize=samplerate)
+                                samplerate=samplerate)
 
         self.channels = channels
         
@@ -43,9 +43,6 @@ class BeatWave:
         # Output on the given channel
         if self.channel_side != -1 and self.channels == 2:
             outdata[:, self.channel_side] = 0.0
-            
-
-
 
     def play(self):
         '''Plays the sinewave (in a separate thread). Changes in frequency or amplitude will transition smoothly.'''
@@ -58,15 +55,31 @@ class BeatWave:
     def set_frequency(self, frequency):
         '''Sets the goal frequency of the sinewave, which will be smoothly transitioned to.'''
         self.beatwave_generator.set_frequency(frequency)
+
+    def reset_frequency(self, frequency):
+        '''Sets the goal frequency of the sinewave, which will be smoothly transitioned to.'''
+        self.beatwave_generator.reset_frequency(frequency)
     
     def set_pitch(self, pitch):
         '''Sets the goal pitch of the sinewave (relative to middle C), 
         which will be smoothly transitioned to.'''
         self.beatwave_generator.set_pitch(pitch)
+
+    def reset_pitch(self, pitch):
+        '''Sets the goal pitch of the sinewave (relative to middle C), 
+        which will be smoothly transitioned to.'''
+        self.beatwave_generator.reset_pitch(pitch)
     
     def set_volume(self, volume):
         '''Sets the goal volume (in decibels, relative to medium volume) of the sinewave'''
         self.beatwave_generator.set_decibels(volume)
 
+    def reset_volume(self, volume):
+        '''Sets the goal volume (in decibels, relative to medium volume) of the sinewave'''
+        self.beatwave_generator.reset_decibels(volume)
+
     def set_beat_frequency(self, beat_frequency):
         self.beatwave_generator.set_beat_frequency(beat_frequency)
+
+    def set_pitch_per_second(self, pitch_per_second):
+        self.beatwave_generator.pitch_per_second = pitch_per_second
